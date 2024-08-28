@@ -1,0 +1,16 @@
+[
+    {
+        "question": "What is my first name",
+        "incorrect1": "Davlat",
+        "incorrect2": "Sardor",
+        "incorrect3": "Mehroj",
+        "correct": "Ro'zimurod"
+    },
+    {
+        "question": "Which is my favorite colour",
+        "incorrect1": "blue",
+        "incorrect2": "yellow",
+        "incorrect3": "red",
+        "correct": "dodgerblue"
+    }
+]
