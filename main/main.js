@@ -1,113 +1,65 @@
-console.log('Hello World')
+const container = document.querySelector('.container');
+let answersMassive = {}; // Bo'sh obyekt
 
-const answer = document.querySelectorAll('.answer');
+const getData = async () => {
+    try {
+        const req = await fetch('../tdos.json');
+        if (!req.ok) throw new Error('Network response was not ok');
+        const data = await req.json();
 
+        let counter = 1;
+        data.forEach(element => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('part-1');
+            questionDiv.innerHTML = `
+                <h1 class="question">
+                    <p>${counter}) ${element.question}</p>
+                </h1>
+                <div class="part-2">
+                    <button class="answer" data-question="${counter}" data-answer="${element.incorrect1}">
+                        ${element.incorrect1}
+                    </button>
+                    <button class="answer" data-question="${counter}" data-answer="${element.incorrect2}">
+                        ${element.incorrect2}
+                    </button>
+                    <button class="answer" data-question="${counter}" data-answer="${element.correct}">
+                        ${element.correct}
+                    </button>
+                    <button class="answer" data-question="${counter}" data-answer="${element.incorrect3}">
+                        ${element.incorrect3}
+                    </button>
+                </div>
+        `;
+            container.appendChild(questionDiv);
+            counter++;
+        });
 
+        // `answer` tugmalarga event listener qo'shish
+        document.querySelectorAll('.answer').forEach(answerBtn => {
+            answerBtn.addEventListener('click', () => {
+                let questionNumber = answerBtn.getAttribute('data-question');
+                let selectedAnswer = answerBtn.getAttribute('data-answer');
 
-for(let index1 = 0; index1 < 4; index1++){
-    answer[index1].addEventListener(('click'),()=>{
-        let answerInnerHTML = answer[index1].innerHTML;
-        if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C')
-        {
-            answer[0].style.backgroundColor = 'yellow'
-            answer[1].style.backgroundColor = 'yellow'
-            answer[2].style.backgroundColor = 'yellow'
-            answer[3].style.backgroundColor = 'yellow'
-            answer[index1].style.backgroundColor = 'green'
-        }
-        else{
-            for(let index = 0; index < 4; index++){
-                answerInnerHTML = answer[index].innerHTML
-                if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C'){
-                    answer[0].style.backgroundColor = 'yellow'
-                    answer[1].style.backgroundColor = 'yellow'
-                    answer[2].style.backgroundColor = 'yellow'
-                    answer[3].style.backgroundColor = 'yellow'
-                    answer[index1].style.backgroundColor = 'red'
-                    answer[index].style.backgroundColor = 'green'
+                // Oldindan tanlangan javob tugmachasi mavjud bo'lsa, uni tiklash
+                if (answersMassive[questionNumber]) {
+                    const previousSelectedBtn = document.querySelector(`.answer[data-question="${questionNumber}"][data-answer="${answersMassive[questionNumber]}"]`);
+                    if (previousSelectedBtn) {
+                        previousSelectedBtn.style.backgroundColor = ''; // Tiklaymiz
+                    }
                 }
-            }
-        }
-    })
-}
 
-for(let index1 = 4; index1 < 8; index1++){
-    answer[index1].addEventListener(('click'),()=>{
-        let answerInnerHTML = answer[index1].innerHTML;
-        if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C')
-        {
-            answer[4].style.backgroundColor = 'yellow'
-            answer[5].style.backgroundColor = 'yellow'
-            answer[6].style.backgroundColor = 'yellow'
-            answer[7].style.backgroundColor = 'yellow'
-            answer[index1].style.backgroundColor = 'green'
-        }
-        else{
-            for(let index = 4; index < 8; index++){
-                answerInnerHTML = answer[index].innerHTML
-                if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C'){
-                    answer[4].style.backgroundColor = 'yellow'
-                    answer[5].style.backgroundColor = 'yellow'
-                    answer[6].style.backgroundColor = 'yellow'
-                    answer[7].style.backgroundColor = 'yellow'
-                    answer[index1].style.backgroundColor = 'red'
-                    answer[index].style.backgroundColor = 'green'
-                }
-            }
-        }
-    })
-}
+                // Foydalanuvchi tomonidan tanlangan javob tugmachasini qizil rangga bo'yash
+                answerBtn.style.backgroundColor = 'red';
 
-for(let index1 = 8; index1 < 12; index1++){
-    answer[index1].addEventListener(('click'),()=>{
-        let answerInnerHTML = answer[index1].innerHTML;
-        if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C')
-        {
-            answer[8].style.backgroundColor = 'yellow'
-            answer[9].style.backgroundColor = 'yellow'
-            answer[10].style.backgroundColor = 'yellow'
-            answer[11].style.backgroundColor = 'yellow'
-            answer[index1].style.backgroundColor = 'green'
-        }
-        else{
-            for(let index = 8; index < 12; index++){
-                answerInnerHTML = answer[index].innerHTML
-                if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C'){
-                    answer[8].style.backgroundColor = 'yellow'
-                    answer[9].style.backgroundColor = 'yellow'
-                    answer[10].style.backgroundColor = 'yellow'
-                    answer[11].style.backgroundColor = 'yellow'
-                    answer[index1].style.backgroundColor = 'red'
-                    answer[index].style.backgroundColor = 'green'
-                }
-            }
-        }
-    })
-}
+                // Javobni massivga qo'shish
+                answersMassive[questionNumber] = selectedAnswer;
+                console.log(answersMassive);
+            });
+        });
 
-for(let index1 = 12; index1 < 16; index1++){
-    answer[index1].addEventListener(('click'),()=>{
-        let answerInnerHTML = answer[index1].innerHTML;
-        if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C')
-        {
-            answer[12].style.backgroundColor = 'yellow'
-            answer[13].style.backgroundColor = 'yellow'
-            answer[14].style.backgroundColor = 'yellow'
-            answer[15].style.backgroundColor = 'yellow'
-            answer[index1].style.backgroundColor = 'green'
-        }
-        else{
-            for(let index = 12; index < 16; index++){
-                answerInnerHTML = answer[index].innerHTML
-                if(answerInnerHTML[answerInnerHTML.indexOf(')')-1] == 'C'){
-                    answer[12].style.backgroundColor = 'yellow'
-                    answer[13].style.backgroundColor = 'yellow'
-                    answer[14].style.backgroundColor = 'yellow'
-                    answer[15].style.backgroundColor = 'yellow'
-                    answer[index1].style.backgroundColor = 'red'
-                    answer[index].style.backgroundColor = 'green'
-                }
-            }
-        }
-    })
-}
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+};
+
+getData();
